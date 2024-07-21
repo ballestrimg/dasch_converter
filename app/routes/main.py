@@ -1,15 +1,18 @@
 from ..app import app, ALLOWED_EXTENSIONS
-import os
 from io import BytesIO
-import numpy as np 
-
-from flask import render_template, redirect, request, url_for, send_file, send_from_directory 
+ 
+from flask import render_template, redirect, request, url_for, send_file
 from werkzeug.utils import secure_filename
 from PIL import Image
 
+# set global variable : None == no limits to pixels
+Image.MAX_IMAGE_PIXELS = None
+
+# function allowed_files : define extensions allowed
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+# function resize_images : define 1024x1024 pixels to output files
 def resize_image(filename, max_width=1024, max_height=1024):
     img = Image.open(filename)
     width, height = img.size
@@ -22,34 +25,45 @@ def resize_image(filename, max_width=1024, max_height=1024):
         # redefine 'img' variable
         img = img.resize((new_width, new_height), Image.LANCZOS)
 
-    return img # CODE OK
+    return img
 
-@app.route("/") # TALVEZ ADD methods=['GET', 'POST']
+# route home
+@app.route("/")
 def home():
     return render_template("pages/main.html")
 
-@app.route("/convert", methods=['POST']) # TALVEZ ADD GET AS METHOD
+# route convert
+@app.route("/convert", methods=['POST'])
+
+# function upload image : check file extension, save it to BytesIO and apply new filename
 def upload_image():
 
     if 'file' not in request.files:
-        return redirect(request.url) # ver o que significa var request.url
+        return redirect(request.url) 
     
     file = request.files['file']
     if file.filename == '':
-        return redirect(request.url) # ver o que significa var request.url
+        return redirect(request.url) 
 
-    '''aparentemente até aqui tá tudo certo, verificar apenas o que é request.url'''
-
-    if file and allowed_file(file.filename): # até aqui ta OK
-        filename = secure_filename(file.filename) # not used yet
-        # HYPOTHESIS USING BO INSTEAD RESIZE FILE
+    if file and allowed_file(file.filename):
+        filename = secure_filename(file.filename)
+        file_extension = filename.rsplit('.', 1)[1].lower()
+        
         resized_image = resize_image(file)
         img_io = BytesIO()
-        resized_image.save(img_io, 'JPEG')
+        
+        if file_extension == 'jpeg' or file_extension == 'jpg':
+            resized_image.save(img_io, 'JPEG')
+            mimetype = 'image/jpeg'
+            download_name = f'{filename.rsplit('.', 1)[1]}_resized.jpeg'
+        elif file_extension == 'png':
+            resized_image.save(img_io, 'PNG')
+            mimetype = 'image/png'
+            download_name = f'{filename.rsplit('.', 1)[1]}_resized.jpeg'
+
         img_io.seek(0)
     
-        # return send_file(img_io, as_attachment=True)
-        return send_file(img_io, mimetype='image/jpeg', as_attachment=True, download_name= 'resized_file.jpeg')
+        return send_file(img_io, mimetype=mimetype, as_attachment=True, download_name=download_name)
     
     return redirect(url_for(home))
 
