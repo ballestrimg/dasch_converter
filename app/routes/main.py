@@ -55,11 +55,11 @@ def upload_image():
         if file_extension == 'jpeg' or file_extension == 'jpg':
             resized_image.save(img_io, 'JPEG')
             mimetype = 'image/jpeg'
-            download_name = f'{filename.rsplit('.', 1)[1]}_resized.jpeg'
+            download_name = f'{filename.rsplit(".", 1)[1]}_resized.jpeg'
         elif file_extension == 'png':
             resized_image.save(img_io, 'PNG')
             mimetype = 'image/png'
-            download_name = f'{filename.rsplit('.', 1)[1]}_resized.jpeg'
+            download_name = f'{filename.rsplit(".", 1)[1]}_resized.jpeg'
 
         img_io.seek(0)
     
