@@ -55,7 +55,7 @@ Werkzeug==3.0.3
 
 1. **Clone the Repository:**
    ```bash
-   git clone https://github.com/ballestrimg/dasch_converter.git
+   git clone https://github.com/ballestrimg/dasch_converter-main.git
    cd dasch_converter
    ```
 
