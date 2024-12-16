@@ -14,15 +14,21 @@ DaSCH Converter is a lightweight application designed to convert images in `.jpg
 The application is organized as follows:
 
 ```
-DaSCH-Converter/
+dasch_converter/
 |
-├── routes/         # Contains Flask route definitions.
-├── statics/        # Static files such as CSS, JavaScript, and images.
-├── templates/      # HTML templates for the web interface.
-├── tests/          # Unit tests for the application.
-└── app.py          # Main entry point of the application.
-└── requirements.py # Script to manage application dependencies.
-└── run.py          # Script to initialize and run the Flask application.
+├── app/            # Main application folder
+│   ├── __pycache__/ # Compiled Python files
+│   ├── routes/      # Contains Flask route definitions
+│   ├── statics/     # Static files such as CSS, JavaScript, and images
+│   ├── templates/   # HTML templates for the web interface
+│   ├── tests/       # Unit tests for the application
+│   ├── __init__.py  # Initializes the Flask application
+│   ├── app.py       # Main application logic
+│   └── config.py    # Configuration settings for the application
+├── LICENSE.md       # MIT License file
+├── README.md        # Project documentation
+├── requirements.txt # Lists required libraries and dependencies
+└── run.py           # Script to start the Flask server
 ```
 
 ## Requirements
