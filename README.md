@@ -14,7 +14,7 @@ DaSCH Converter is a lightweight application designed to convert images in `.jpg
 The application is organized as follows:
 
 ```
-dasch_converter/
+dasch_converter-main/
 |
 ├── app/            # Main application folder
 │   ├── __pycache__/ # Compiled Python files
