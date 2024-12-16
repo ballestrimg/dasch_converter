@@ -97,5 +97,5 @@ Contributions are welcome! Feel free to fork the repository, make changes, and s
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+This project is licensed under the MIT License. See the [LICENSE](https://github.com/ballestrimg/dasch_converter/blob/main/LICENCE.md) file for more details.
 
